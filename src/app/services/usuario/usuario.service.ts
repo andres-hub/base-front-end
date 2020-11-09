@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { URL_SERVICOS } from 'src/app/config/config';
@@ -140,12 +140,12 @@ export class UsuarioService {
       map((resp: any) =>{
         
         this.guardarStorage(resp.id,resp.token,resp.usuario, resp.menu);
-        
+        console.log(resp);
         return true;
         
       }),
       catchError((err: HttpErrorResponse) =>{
-
+        
         Swal.fire({
           title: '¡Erro en el login!',
           text: err.error.mensaje,
@@ -160,6 +160,39 @@ export class UsuarioService {
       
     );
 
+   }
+
+   registrarse(usuario: Usuario){
+      let url = URL_SERVICOS + '/usuario/publico';
+      return this.http.post(url,usuario)
+      .pipe(
+        map((res:any)=>{
+
+          Swal.fire({
+            title: '¡Registrado con éxito!',
+            text: usuario.email,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          });
+
+          return res.usuario;
+
+        }),
+        catchError((err: any) =>{
+
+    
+          Swal.fire({
+            title: err.error.mensaje,
+            text: err.error.errors,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+  
+          return throwError(err);
+  
+        })
+
+      )
    }
 
    crearUsuario(usuario: Usuario){
@@ -215,7 +248,7 @@ export class UsuarioService {
 
         Swal.fire({
           title: '¡Usuario actualizado!',
-          text: usuario.nombre,
+          text: usuario.names,
           icon: 'success',
           confirmButtonText: 'Ok'
         })
@@ -250,7 +283,7 @@ export class UsuarioService {
 
       Swal.fire({
         title: 'Imagen actualizado!',
-        text: this.usuario.nombre,
+        text: this.usuario.names,
         icon: 'success',
         confirmButtonText: 'Ok'
       })

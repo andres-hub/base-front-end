@@ -45,16 +45,18 @@ export class RegisterComponent implements OnInit {
     init_plugins();
 
     this.forma = new FormGroup({
-      nombre: new FormControl(null, Validators.required),
-      correo: new FormControl(null,[Validators.required,Validators.email]),
+      names: new FormControl(null, Validators.required),
+      email: new FormControl(null,[Validators.required,Validators.email]),
+      userName: new FormControl(null,[Validators.required,Validators.email]),
       password: new FormControl(null,Validators.required),
       password2: new FormControl(null, Validators.required),
       condiciones: new FormControl(false)
     },{validators: this.sonIguales('password','password2')});
 
     this.forma.setValue({
-      nombre: 'test ',
-      correo: 'test@test.com',
+      names: 'test ',
+      email: 'test@test.com',
+      userName:'test@test.com',
       password: '123456',
       password2: '123456',
       condiciones: true
@@ -74,18 +76,18 @@ export class RegisterComponent implements OnInit {
         text: 'Debe aceptar las condiciones',
         icon: 'error',
         confirmButtonText: 'Cool'
-      })
-      //Swal('Importante', 'Debe aceptar las condiciones', 'warning');
+      });
+      
       return;
     }
 
     let usuario = new Usuario(
-      this.forma.value.nombre,
-      this.forma.value.correo,
+      this.forma.value.names,
+      this.forma.value.email,
       this.forma.value.password
-    )
+    );
 
-    this._usuarioService.crearUsuario(usuario)
+    this._usuarioService.registrarse(usuario)
     .subscribe( resp => this.router.navigate(['/login']));
 
   }
