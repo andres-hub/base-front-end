@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Lista de módulos</h4>
+                <!-- TODO: Colocar snipped miestras carga los modulos -->
+                <h6 class="card-subtitle"></h6>
+                <button type="button" class="btn btn-info btn-rounded mt-4 mb-2" data-toggle="modal" data-target="#modal-new">
+                    <i class="mdi mdi-plus-circle"></i>&nbsp;Nuevo <!-- TODO: Validar permiso  -->
+                </button>             
+                <div class="table-responsive" >
+                    
+                    <table class="table table-bordered m-t-30 table-hover contact-list footable footable-5 footable-paging footable-paging-center breakpoint-lg">
+                        <thead>
+                            <tr class="footable-header">
+                                <th><i class="mdi mdi-format-list-bulleted-type"></i></th>
+                                <th>Nombre</th>
+                                <th>Icono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let modulo of modulos">
+                                <td></td>
+                                <td>{{modulo.modulo}}</td>
+                                <td><i [class]="modulo.icono"></i></td>
+                            </tr>
+                        </tbody>
+                   </table>
+
+                   <div class="dataTables_info" id="complex_header_info" role="status" aria-live="polite" wfd-id="375">
+                       Mostrando {{total}} a {{total}} de {{total}} registros
+                       <!-- TODO: Corregir paginacion  -->
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+       
+<div id="modal-new" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex">
+                <h4 class="modal-title">
+                    <strong>Modulo</strong>
+                </h4>
+                <button type="button" class="close ml-auto" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" wfd-id="461">
+                <form  class="form-horizontal form-material" id="loginform" action="index.html">
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input name="nombre" class="form-control" type="text" required placeholder="Nombre" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input name="icono" class="form-control" type="text" required placeholder="Icono" autocomplete="off">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn waves-light btn-success"><i class="mdi mdi-content-save"></i>&nbsp;Guardar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+       
+
